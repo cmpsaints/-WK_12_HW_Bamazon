@@ -68,23 +68,27 @@ function customerPurchase(){
                 ], function(err, result){
                         if(err) throw err;
                         console.log("Success! Your total is $" + grandTotal.toFixed(2) + ".");
+                        reprompt();
                     }
                 );
             
-                connection.query("SELECT * FROM Departments", function(err, deptRes){
-                    if(err) throw err;
-                    var index;
-                    for(var i = 0; i < deptRes.length; i++){
-                        if(deptRes[i].DepartmentName === res[whatToBuy].DepartmentName){
-                            index = i;
-                        }
-                    }
-                });
+                // connection.query("SELECT * FROM Departments", function(err, deptRes){
+                //     if(err) throw err;
+                //     var index;
+                //     for(var i = 0; i < deptRes.length; i++){
+                //         if(deptRes[i].DepartmentName === res[whatToBuy].DepartmentName){
+                //             index = i;
+                //         }
+                //     }
+                //     // reprompt();
+                // });
+            
             } else{
                 console.log("Sorry, there's not enough in stock!");
+                reprompt();
             }
     
-            reprompt();
+            // reprompt();
         });
     });
 }
@@ -101,9 +105,9 @@ function reprompt(){
         if(answer.reply){
             start();
         } else{
-            console.log("See you soon!");
+            console.log("See you soon! (cmd-C for Mac, or ctrl-C for Windows to finalize exit)");
         }
     });
 }
 
-customerPurhase();
+customerPurchase();
